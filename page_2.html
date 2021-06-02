@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="script.js"></script>
+        <meta charset="UTF-8" />
+        <meta name="viewport" 
+              content="width=device-width, initial-scale=1.0" />
+        <title>Fecthing data</title>
+    </head>
+	<style>
+	html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  display: grid;
+  justify-items: center;
+  align-items: center;   
+  background-color #ff4e00;
+background-image linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%);
+
+
+}
+#main-holder {
+  width: 70%;
+  height: 70%;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+
+  
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px 2px black;
+  background-color: #1fd1f9;
+background-image: linear-gradient(315deg, #1fd1f9 0%, #b621fe 74%);
+
+
+}
+
+
+
+
+
+
+
+
+
+	   table {
+  max-width: 100%;
+}
+
+tr {
+  background-color: #eee;
+}
+
+th {
+  background-color: #555;
+  color: #fff;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.5em 1em;
+}
+
+	</style>
+    <body>
+	<main id="main-holder">
+        <!-- Here a loader is created which 
+             loads till response comes -->
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" 
+                 role="status" id="loading">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <h1>API Data</h1>
+        <!-- table for showing data -->
+        <table id="employees"></table>
+		</main>
+    </body>
+</html>

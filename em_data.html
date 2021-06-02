@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Import Data From Excel</title>
+
+        <!-- Ignite UI for jQuery Required Combined CSS Files -->
+        <link href="http://cdn-na.infragistics.com/igniteui/2020.2/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+        <link href="http://cdn-na.infragistics.com/igniteui/2020.2/latest/css/structure/infragistics.css" rel="stylesheet" />
+
+        <style>
+		
+		html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  display: grid;
+  justify-items: center;
+  align-items: center;  
+  background-color: #a4508b;
+background-image: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%);
+
+}
+#main-holder {
+  width: 70%;
+  height: 70%;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px 2px black;
+}
+
+            #sampleContainer ol {
+                padding: 0px 0px 0px 15px;
+                margin: 0;
+            }
+
+            #sampleContainer input {
+                margin: 10px 0;
+            }
+            #result {
+                display: none;
+                color: red;
+            }
+        
+		
+	   table {
+  max-width: 100%;
+}
+
+tr {
+  background-color: #eee;
+}
+
+th {
+  background-color: #555;
+  color: #fff;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.5em 1em;
+}
+button {
+  border-radius: 4px;
+  
+  border: none;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  padding: 8px;
+  width: 150px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 16px;
+  box-shadow: 0 10px 20px -8px rgba(0, 0, 0,.7);
+  background-color: #f7b42c;
+background-image: linear-gradient(315deg, #f7b42c 0%, #fc575e 74%);
+
+}
+
+button{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+button:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;  
+  top: 14px;
+  right: -20px;
+  transition: 0.5s;
+}
+
+button:hover{
+  padding-right: 24px;
+  padding-left:8px;
+}
+
+button:hover:after {
+  opacity: 1;
+  right: 10px;
+}
+
+input {
+  border-radius: 4px;
+  
+  border: none;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  padding: 8px;
+  width: 500px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 16px;
+  box-shadow: 0 10px 20px -8px rgba(0, 0, 0,.7);
+  background-color: #36096d;
+background-image: linear-gradient(315deg, #36096d 0%, #37d5d6 74%);
+
+}
+input{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+input:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;  
+  top: 14px;
+  right: -20px;
+  transition: 0.5s;
+}
+
+input:hover{
+  padding-right: 24px;
+  padding-left:8px;
+}
+
+input:hover:after {
+  opacity: 1;
+  right: 10px;
+}
+
+
+
+
+
+	</style>
+        <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.8.3.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+        <script type="text/javascript" src="http://cdn-na.infragistics.com/igniteui/2020.2/latest/js/infragistics.core.js"></script>
+        <script type="text/javascript" src="http://cdn-na.infragistics.com/igniteui/2020.2/latest/js/infragistics.lob.js"></script>
+
+        <script type="text/javascript" src="http://cdn-na.infragistics.com/igniteui/2020.2/latest/js/modules/infragistics.ext_core.js"></script>
+        <script type="text/javascript" src="http://cdn-na.infragistics.com/igniteui/2020.2/latest/js/modules/infragistics.ext_collections.js"></script>
+        <script type="text/javascript" src="http://cdn-na.infragistics.com/igniteui/2020.2/latest/js/modules/infragistics.ext_text.js"></script>
+        <script type="text/javascript" src="http://cdn-na.infragistics.com/igniteui/2020.2/latest/js/modules/infragistics.ext_io.js"></script>
+        <script type="text/javascript" src="http://cdn-na.infragistics.com/igniteui/2020.2/latest/js/modules/infragistics.ext_ui.js"></script>
+        <script type="text/javascript" src="http://cdn-na.infragistics.com/igniteui/2020.2/latest/js/modules/infragistics.documents.core_core.js"></script>
+        <script type="text/javascript" src="http://cdn-na.infragistics.com/igniteui/2020.2/latest/js/modules/infragistics.ext_collectionsextended.js"></script>
+        <script type="text/javascript" src="http://cdn-na.infragistics.com/igniteui/2020.2/latest/js/modules/infragistics.excel_core.js"></script>
+        <script type="text/javascript" src="http://cdn-na.infragistics.com/igniteui/2020.2/latest/js/modules/infragistics.ext_threading.js"></script>
+        <script type="text/javascript" src="http://cdn-na.infragistics.com/igniteui/2020.2/latest/js/modules/infragistics.ext_web.js"></script>
+        <script type="text/javascript" src="http://cdn-na.infragistics.com/igniteui/2020.2/latest/js/modules/infragistics.xml.js"></script>
+        <script type="text/javascript" src="http://cdn-na.infragistics.com/igniteui/2020.2/latest/js/modules/infragistics.documents.core_openxml.js"></script>
+        <script type="text/javascript" src="http://cdn-na.infragistics.com/igniteui/2020.2/latest/js/modules/infragistics.excel_serialization_openxml.js"></script>
+        <script src="jquery-1.10.2.min.js" type="text/javascript"></script>  
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.7.7/xlsx.core.min.js"></script>  
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xls/0.7.4-a/xls.core.min.js"></script>
+		
+    </head>
+    <body>
+	<main id="main-holder">
+        <div>
+            <ol>
+                <li>Download this <a href="emp_data.xlsx" download>sample  Excel file</a></li>
+                <li>Click Choose File/Browse button below and pick the sample Excel file or another excel file.</li>
+            
+        </div>
+		
+
+
+
+
+        <input type="file" id="excelfile" />  
+        <input type="button" id="viewfile" value="View data" onclick="ExportToTable()" />  
+        <br />  
+        <br />  
+        <table id="exceltable">  
+        </table> 
+        <form action="page_2.html">
+    
+	<button><span>To fetch api data    </span></button>
+</form>
+
+        <script>
+
+
+            $(function () {
+                $("#input").on("change", function () {
+                    var excelFile,
+                            fileReader = new FileReader();
+
+                    $("#result").hide();
+
+                    fileReader.onload = function (e) {
+                        var buffer = new Uint8Array(fileReader.result);
+
+                        $.ig.excel.Workbook.load(buffer, function (workbook) {
+                            var column, row, newRow, cellValue, columnIndex, i,
+                                    worksheet = workbook.worksheets(0),
+                                    columnsNumber = 0,
+                                    gridColumns = [],
+                                    data = [],
+                                    worksheetRowsCount;
+
+                            // Both the columns and rows in the worksheet are lazily created and because of this most of the time worksheet.columns().count() will return 0
+                            // So to get the number of columns we read the values in the first row and count. When value is null we stop counting columns:
+                            while (worksheet.rows(0).getCellValue(columnsNumber)) {
+                                columnsNumber++;
+                            }
+
+                            // Iterating through cells in first row and use the cell text as key and header text for the grid columns
+                            for (columnIndex = 0; columnIndex < columnsNumber; columnIndex++) {
+                                column = worksheet.rows(0).getCellText(columnIndex);
+                                gridColumns.push({headerText: column, key: column});
+                            }
+
+                            // We start iterating from 1, because we already read the first row to build the gridColumns array above
+                            // We use each cell value and add it to json array, which will be used as dataSource for the grid
+                            for (i = 1, worksheetRowsCount = worksheet.rows().count(); i < worksheetRowsCount; i++) {
+                                newRow = {};
+                                row = worksheet.rows(i);
+
+                                for (columnIndex = 0; columnIndex < columnsNumber; columnIndex++) {
+                                    cellValue = row.getCellText(columnIndex);
+                                    newRow[gridColumns[columnIndex].key] = cellValue;
+                                }
+
+                                data.push(newRow);
+                            }
+
+                            // we can also skip passing the gridColumns use autoGenerateColumns = true, or modify the gridColumns array
+                            createGrid(data, gridColumns);
+                        }, function (error) {
+                            $("#result").text("The excel file is corrupted.");
+                            $("#result").show(1000);
+                        });
+                    }
+
+                    if (this.files.length > 0) {
+                        excelFile = this.files[0];
+                        if (excelFile.type === "application/vnd.ms-excel" || excelFile.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" || (excelFile.type === "" && (excelFile.name.endsWith("xls") || excelFile.name.endsWith("xlsx")))) {
+                            fileReader.readAsArrayBuffer(excelFile);
+                        } else {
+                            $("#result").text("The format of the file you have selected is not supported. Please select a valid Excel file ('.xls, *.xlsx').");
+                            $("#result").show(1000);
+                        }
+                    }
+
+                })
+            });
+
+            function createGrid(data, gridColumns) {
+                if ($("#grid1").data("igGrid") !== undefined) {
+                    $("#grid1").igGrid("destroy");
+                }
+
+                $("#grid1").igGrid({
+                    columns: gridColumns,
+                    autoGenerateColumns: true,
+                    dataSource: data,
+                    width: "100%"
+                });
+            }
+
+            function ExportToTable() {
+                var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xlsx|.xls)$/;
+                /*Checks whether the file is a valid excel file*/
+                if (regex.test($("#excelfile").val().toLowerCase())) {
+                    var xlsxflag = false; /*Flag for checking whether excel is .xls format or .xlsx format*/
+                    if ($("#excelfile").val().toLowerCase().indexOf(".xlsx") > 0) {
+                        xlsxflag = true;
+                    }
+                    /*Checks whether the browser supports HTML5*/
+                    if (typeof (FileReader) != "undefined") {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            var data = e.target.result;
+                            /*Converts the excel data in to object*/
+                            if (xlsxflag) {
+                                var workbook = XLSX.read(data, {type: 'binary'});
+                            } else {
+                                var workbook = XLS.read(data, {type: 'binary'});
+                            }
+                            /*Gets all the sheetnames of excel in to a variable*/
+                            var sheet_name_list = workbook.SheetNames;
+
+                            var cnt = 0; /*This is used for restricting the script to consider only first sheet of excel*/
+                            sheet_name_list.forEach(function (y) { /*Iterate through all sheets*/
+                                /*Convert the cell value to Json*/
+                                if (xlsxflag) {
+                                    var exceljson = XLSX.utils.sheet_to_json(workbook.Sheets[y]);
+                                } else {
+                                    var exceljson = XLS.utils.sheet_to_row_object_array(workbook.Sheets[y]);
+                                }
+                                if (exceljson.length > 0 && cnt == 0) {
+                                    BindTable(exceljson, '#exceltable');
+                                    cnt++;
+                                }
+                            });
+                            $('#exceltable').show();
+                        }
+                        if (xlsxflag) {/*If excel file is .xlsx extension than creates a Array Buffer from excel*/
+                            reader.readAsArrayBuffer($("#excelfile")[0].files[0]);
+                        } else {
+                            reader.readAsBinaryString($("#excelfile")[0].files[0]);
+                        }
+                    } else {
+                        alert("Sorry! Your browser does not support HTML5!");
+                    }
+                } else {
+                    alert("Please upload a valid Excel file!");
+                }
+            }
+
+            function BindTable(jsondata, tableid) {/*Function used to convert the JSON array to Html Table*/
+                var columns = BindTableHeader(jsondata, tableid); /*Gets all the column headings of Excel*/
+                for (var i = 0; i < jsondata.length; i++) {
+                    var row$ = $('<tr/>');
+                    for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+                        var cellValue = jsondata[i][columns[colIndex]];
+                        if (cellValue == null)
+                            cellValue = "";
+                        row$.append($('<td/>').html(cellValue));
+                    }
+                    $(tableid).append(row$);
+                }
+            }
+            function BindTableHeader(jsondata, tableid) {/*Function used to get all column names from JSON and bind the html table header*/
+                var columnSet = [];
+                var headerTr$ = $('<tr/>');
+                for (var i = 0; i < jsondata.length; i++) {
+                    var rowHash = jsondata[i];
+                    for (var key in rowHash) {
+                        if (rowHash.hasOwnProperty(key)) {
+                            if ($.inArray(key, columnSet) == -1) {/*Adding each unique column names to a variable array*/
+                                columnSet.push(key);
+                                headerTr$.append($('<th/>').html(key));
+                            }
+                        }
+                    }
+                }
+                $(tableid).append(headerTr$);
+                return columnSet;
+            }
+
+
+        </script>
+		</main>
+    </body>
+</html>
